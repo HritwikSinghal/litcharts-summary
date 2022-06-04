@@ -10,21 +10,22 @@ Saves it in 'book_summary.html'.
 Clone this repository using
 
 ```sh
-$ cd ~
-$ git clone -b master --depth 1 https://github.com/HritwikSinghal/litcharts-summary
+cd ~
+git clone -b master --depth 1 https://github.com/HritwikSinghal/litcharts-summary
 ```
 
 Enter the directory and install all the requirements using
 
 ```sh
-$ cd litcharts-summary/
-$ pip3 install -r requirements.txt
+cd litcharts-summary/
+pip3 install -r requirements.txt
 ```
 
 Run the app (or don't if it was started in last step)
 
 ```sh
-$ python3 main.py
+chmod +x main.py
+./main.py
 ```
 
 ---
