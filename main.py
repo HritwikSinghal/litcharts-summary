@@ -75,8 +75,15 @@ def get_chapter_links(summary_link: str) -> list[str]:
     return chapters
 
 
+def get_summary_link():
+    link = input("Enter book SUMMARY PAGE link on litcharts\n"
+                 "it should be something like 'https://www.litcharts.com/lit/the-white-tiger/summary'\n\n")
+    return link.strip()
+
+
 if __name__ == '__main__':
-    summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
+    # summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
+    summary_link = get_summary_link()
     chapter_links = get_chapter_links(summary_link)
 
     # add HTML,HEAD & BODY tag for initialization
@@ -101,3 +108,5 @@ if __name__ == '__main__':
     # end the above HTML, HEAD, BODY tag.
     with open('book_summary.html', 'a') as html_page:
         html_page.write("</body>\n</html>")
+
+    print("Summary saved in 'book_summary.html' in project dir. ")
