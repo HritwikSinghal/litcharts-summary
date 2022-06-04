@@ -30,7 +30,6 @@ def get_chapter_summary(link: str, name: str) -> None:
 
 
 def get_chapter_links(summary_link: str) -> list[str]:
-
     # midchild_links = [
     #     "https://www.litcharts.com/lit/midnight-s-children/book-1-the-perforated-sheet",
     #     "https://www.litcharts.com/lit/midnight-s-children/book-1-mercurochrome",
@@ -64,9 +63,16 @@ def get_chapter_links(summary_link: str) -> list[str]:
     #     "https://www.litcharts.com/lit/midnight-s-children/book-3-abracadabra",
     # ]
 
+    page_source = get_page_source(summary_link)
+    chapters_temp = re.findall(r"class=\"subcomponent tappable\" href=\"/lit/(.*)\">",
+                               page_source)
 
-    with open('links') as my_file:
-        return my_file.readlines()
+    chapters = []
+    for _ in chapters_temp:
+        if "chapter" in _:
+            chapters.append("https://www.litcharts.com/lit/" + _)
+
+    return chapters
 
 
 if __name__ == '__main__':
