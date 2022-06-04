@@ -16,13 +16,13 @@ def get_book_summary(summary_link: str) -> str:
     return summary
 
 
-def get_chapter_summary(link: str, name: str) -> None:
+def get_chapter_summary(link: str, name: str, book_file_name: str) -> None:
     html_source = get_page_source(link)
 
     paragraphs = re.findall(r"<div class='summary-text readable highlightable-content non-paywall'>\n(.*)\n</div>\n",
                             html_source)
 
-    with open('book_summary.html', 'a') as book_summary:
+    with open(book_file_name, 'a') as book_summary:
         book_summary.write(f"<center><b> {name} </center> </b>\n")
         for x in paragraphs:
             book_summary.write("<br>\n")
@@ -51,8 +51,9 @@ def get_summary_link():
 
 
 if __name__ == '__main__':
-    summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
-    # summary_link = get_summary_link()
+    # summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
+    summary_link = get_summary_link()
+
     chapter_links = get_chapter_links(summary_link)
     book_title: str = re.findall(r"<title>(.*) Plot Summary \| LitCharts</title>", get_page_source(summary_link))[0]
     book_title = book_title.replace(" ", "_")
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     for link in chapter_links:
         chapter_name = link.split('/')[-1]
         print(f"fetching {chapter_name}")
-        get_chapter_summary(link, chapter_name)
+        get_chapter_summary(link, chapter_name, book_file_name)
 
     # end the above HTML, HEAD, BODY tag.
     with open(book_file_name, 'a') as html_page:
