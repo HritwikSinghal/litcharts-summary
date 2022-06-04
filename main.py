@@ -25,7 +25,7 @@ def get_chapter_summary(link: str, name: str) -> None:
         for x in paragraphs:
             book_summary.write("<br>\n")
             book_summary.write(x + '\n')
-            print(x)
+            # print(x)
             book_summary.write("<br>\n")
 
 
@@ -85,6 +85,12 @@ if __name__ == '__main__':
 
     # write book summary first
     summary = get_book_summary(summary_link)
+    with open('book_summary.html', 'a') as book_summary:
+        book_summary.write(f"<center><b> Book Summary </center> </b>\n")
+        book_summary.write("<br>\n")
+        book_summary.write(summary + '\n')
+        # print(summary)
+        book_summary.write("<br>\n")
 
     # Fetch & Write the book chapter's summary in HTML format
     for link in chapter_links:
