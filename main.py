@@ -32,39 +32,6 @@ def get_chapter_summary(link: str, name: str) -> None:
 
 
 def get_chapter_links(summary_link: str) -> list[str]:
-    # midchild_links = [
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-the-perforated-sheet",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-mercurochrome",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-hit-the-spittoon",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-under-the-carpet",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-a-public-announcement",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-many-headed-monsters",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-methwold",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-1-tick-tock",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-the-fisherman-s-pointing-finger",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-snakes-and-ladders",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-accident-in-a-washing-chest",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-all-india-radio",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-love-in-bombay",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-my-tenth-birthday",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-at-the-pioneer-cafe",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-alpha-and-omega",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-the-kolynos-kid",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-commander-sabarmati-s-baton",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-revelations",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-movements-performed-by-pepperpots",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-drainage-and-the-desert",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-jamila-singer",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-2-how-saleem-achieved-purity",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-the-buddha",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-in-the-sundarbans",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-sam-and-the-tiger",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-the-shadow-of-the-mosque",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-a-wedding",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-midnight",
-    #     "https://www.litcharts.com/lit/midnight-s-children/book-3-abracadabra",
-    # ]
-
     page_source = get_page_source(summary_link)
     chapters_temp = re.findall(r"class=\"subcomponent tappable\" href=\"/lit/(.*)\">",
                                page_source)
@@ -84,17 +51,21 @@ def get_summary_link():
 
 
 if __name__ == '__main__':
-    # summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
-    summary_link = get_summary_link()
+    summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
+    # summary_link = get_summary_link()
     chapter_links = get_chapter_links(summary_link)
+    book_title: str = re.findall(r"<title>(.*) Plot Summary \| LitCharts</title>", get_page_source(summary_link))[0]
+    book_title = book_title.replace(" ", "_")
+    book_file_name = book_title + ".html"
 
+    print(f"Saving '{book_title}' to '{book_file_name}'\n")
     # add HTML,HEAD & BODY tag for initialization
-    with open('book_summary.html', 'w+') as html_page:
+    with open(book_file_name, 'w+') as html_page:
         html_page.write("<!DOCTYPE html>\n<html>\n<body>\n")
 
     # write book summary first
     summary = get_book_summary(summary_link)
-    with open('book_summary.html', 'a') as book_summary:
+    with open(book_file_name, 'a') as book_summary:
         book_summary.write(f"<center><b> Book Summary </center> </b>\n")
         book_summary.write("<br>\n")
         book_summary.write(summary + '\n')
@@ -108,7 +79,7 @@ if __name__ == '__main__':
         get_chapter_summary(link, chapter_name)
 
     # end the above HTML, HEAD, BODY tag.
-    with open('book_summary.html', 'a') as html_page:
+    with open(book_file_name, 'a') as html_page:
         html_page.write("</body>\n</html>")
 
-    print("Summary saved in 'book_summary.html' in project dir. ")
+    print(f"Summary saved in '{book_file_name}' in project dir. ")

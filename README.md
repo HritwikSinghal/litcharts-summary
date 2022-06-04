@@ -1,7 +1,7 @@
 # Save book summary from lit charts.
 
 Just give this module the litcharts book link, and it will fetch summary from there. 
-Saves it in 'book_summary.html'.
+Saves it in <it>'book_file_name</it>.html'.
 
 ---
 
