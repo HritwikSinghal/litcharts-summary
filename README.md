@@ -4,6 +4,7 @@ Just give this module the litcharts book link, and it will fetch summary from th
 Saves it in <it>'book_file_name</it>.html'.
 
 [Here](/The_White_Tiger_by_Aravind_Adiga.html) is the summary of book "The White Tiger" by Arvind Adiga from [this URL](https://www.litcharts.com/lit/the-white-tiger).
+
 ---
 
 ## Install
