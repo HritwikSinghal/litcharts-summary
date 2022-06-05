@@ -45,11 +45,15 @@ def get_chapter_links(summary_link: str) -> list[str]:
 
 
 def get_summary_link():
-    link = input("Enter book SUMMARY PAGE link on litcharts\n"
-                 "it should be something like 'https://www.litcharts.com/lit/the-white-tiger/summary'\n\n")
-    return link.strip()
+    link = input("Enter book Page link on litcharts\n"
+                 "it should be something like 'https://www.litcharts.com/lit/the-white-tiger/'\n\n")
 
-
+    if link.endswith('/'):
+        return link.strip() + "summary"
+    else:
+        return link.strip() + "/summary"
+    
+    
 if __name__ == '__main__':
     # summary_link = 'https://www.litcharts.com/lit/the-white-tiger/summary'
     summary_link = get_summary_link()
